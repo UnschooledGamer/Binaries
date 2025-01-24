@@ -19,20 +19,11 @@ jobs:
         run: brew install coreutils
 
       - name: Install luvit
-        run: sh ./scripts/get-lit.sh
+        run: git clone https://github.com/jedisct1/libsodium.git
         env:
           TIMEOUT_MODE: disable
 
-      - name: Install dependencies
-        run: gtimeout 9s ./lit install
-
       - name: Build binaries
-        run: ./luvit make
+        run: ./dist-build/apple-xcframework.sh
         env:
           DOT_ENABLE: true
-
-      - name: Fetch System Name
-        run: |
-          OS=$(uname -s)
-          ARCH=$(uname -m)
-          echo "ARTIFACT=LunaStream-$OS-$ARCH" >> $GITHUB_ENV

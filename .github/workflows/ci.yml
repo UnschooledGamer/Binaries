@@ -24,6 +24,6 @@ jobs:
           TIMEOUT_MODE: disable
 
       - name: Build binaries
-        run: ./dist-build/apple-xcframework.sh
+        run: cd libsodium && ./dist-build/apple-xcframework.sh
         env:
           DOT_ENABLE: true

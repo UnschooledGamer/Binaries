@@ -86,8 +86,13 @@ echo "Bundling macOS targets..."
 
 mkdir -p "${PREFIX}/macos/lib"
 cp -a "${MACOS_X86_64_PREFIX}/include" "${PREFIX}/macos/"
+echo "copying specific Arch binaries just incase"
 # lipo creates a universal binary for MacOS
 for ext in a dylib; do
+  echo "extension: ${ext}"
+  cp -a "${MACOS_ARM64_PREFIX}/lib/libsodium.${ext}" "${PREFIX}/macos/lib/libsodium_ARM64.${ext}"
+  cp -a "${MACOS_X86_64_PREFIX}/lib/libsodium.${ext}" "${PREFIX}/macos/lib/libsodium_X86_64.${ext}"
+  cp -a "${MACOS_ARM64E_PREFIX}/lib/libsodium.${ext}" "${PREFIX}/macos/lib/libsodium_ARM64E.${ext}"
   lipo -create \
     "${MACOS_ARM64_PREFIX}/lib/libsodium.${ext}" \
     "${MACOS_ARM64E_PREFIX}/lib/libsodium.${ext}" \
@@ -97,10 +102,9 @@ done
 
 echo "Done!"
 
-echo "copying specific Arch binaries just incase"
-cp -a "${MACOS_ARM64_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_ARM64.dylib"
-cp -a "${MACOS_ARM64E_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_ARM64E.dylib"
-cp -a "${MACOS_X86_64_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_X86_64.dylib"
+# cp -a "${MACOS_ARM64_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_ARM64.dylib"
+# cp -a "${MACOS_ARM64E_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_ARM64E.dylib"
+# cp -a "${MACOS_X86_64_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_X86_64.dylib"
 
 echo "copyed specific Arch files to ${PREFIX}/macos/lib directory"
 

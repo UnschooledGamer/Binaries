@@ -32,7 +32,7 @@ jobs:
       - name: Build MacOS 
         run: |
               cd libsodium-stable
-              ../scripts/build-libsodium.sh
+              chmod +x ../scripts/build-libsodium.sh && ../scripts/build-libsodium.sh
         env: 
             LIBSODIUM_MINIMAL_BUILD: true
 

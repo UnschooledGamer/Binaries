@@ -18,7 +18,7 @@ jobs:
       - name: Install dev tools
         run: brew install coreutils
 
-      - name: Install luvit
+      - name: Clone Repo
         run: git clone https://github.com/jedisct1/libsodium.git
         env:
           TIMEOUT_MODE: disable
@@ -27,3 +27,4 @@ jobs:
         run: cd libsodium && ./dist-build/apple-xcframework.sh
         env:
           DOT_ENABLE: true
+          LIBSODIUM_SKIP_SIMULATORS: true

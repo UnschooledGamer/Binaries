@@ -37,7 +37,9 @@ jobs:
             LIBSODIUM_MINIMAL_BUILD: true
             LIBSODIUM_SKIP_SIMULATORS: "true"
 
-      - run: tree
+      - run: |
+             ls ./libsodium/builds
+             tree ./libsodium
 
       - name: cat Log files
         run: |

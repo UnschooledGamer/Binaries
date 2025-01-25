@@ -28,3 +28,18 @@ jobs:
              tar -xvzf LATEST.tar.gz
 
       - run: ls
+
+      - name: Build MacOS 
+        run: |
+              cd libsodium-stable
+              ./dist-build/apple-xcframework.sh
+        env: 
+            LIBSODIUM_MINIMAL_BUILD=true
+            LIBSODIUM_SKIP_SIMULATORS="true"
+
+      - run: ls
+
+      - name: cat Log files
+        run: |
+              cd $(pwd)/libsodium-apple
+              cat build_log

@@ -23,8 +23,8 @@ jobs:
         env:
           TIMEOUT_MODE: disable
 
-      - run: ls
-
       - name: extract 
         run: |
              tar -xvzf LATEST.tar.gz
+
+      - run: ls

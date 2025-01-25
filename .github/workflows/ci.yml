@@ -24,7 +24,9 @@ jobs:
           TIMEOUT_MODE: disable
 
       - name: Build binaries
-        run: cd libsodium && ./dist-build/macos.sh
+        run: |
+             cd libsodium
+             ./dist-build/macos.sh
         env:
           DOT_ENABLE: true
           LIBSODIUM_SKIP_SIMULATORS: true

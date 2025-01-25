@@ -34,12 +34,12 @@ jobs:
               cd libsodium-stable
               ./dist-build/apple-xcframework.sh
         env: 
-            LIBSODIUM_MINIMAL_BUILD=true
-            LIBSODIUM_SKIP_SIMULATORS="true"
+            LIBSODIUM_MINIMAL_BUILD: true
+            LIBSODIUM_SKIP_SIMULATORS: "true"
 
       - run: ls
 
       - name: cat Log files
         run: |
               cd $(pwd)/libsodium-apple
-              cat build_log
+              cat tmp/build_log

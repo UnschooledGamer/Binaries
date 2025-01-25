@@ -43,6 +43,5 @@ jobs:
         with:
           name: libsodium-macos
           path: |
-             libsodium-stable/libsodium-apple/macos/lib
-             libsodium-stable/libsodium-apple/macos/build_log
-             libsodium-stable/libsodium-apple/macos/debug_log
+             libsodium-stable/libsodium-apple/macos/
+             !libsodium-stable/libsodium-apple/macos/include

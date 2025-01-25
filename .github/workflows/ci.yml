@@ -6,11 +6,9 @@ on:
 
 jobs:
   macos:
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     strategy:
       fail-fast: false
-      matrix:
-        os: [macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,12 +16,12 @@ jobs:
       - name: Install dev tools
         run: brew install coreutils tree
 
-      - name: Clone Repo
+      - name: Download libsodium Latest Tarball
         run: wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
         env:
           TIMEOUT_MODE: disable
 
-      - name: extract 
+      - name: Extract Tarball
         run: |
              tar -xvzf LATEST.tar.gz
 
@@ -37,10 +35,14 @@ jobs:
             LIBSODIUM_MINIMAL_BUILD: true
 
       - run: |
-             ls ./libsodium-stable/libsodium-apple
-             tree ./libsodium-stable/libsodium-apple
-
-      - name: cat Log files
-        run: |
-              cd libsodium-stable/libsodium-apple
-              ls
+             ls ./libsodium-stable/libsodium-apple/macos
+             tree ./libsodium-stable/libsodium-apple/macos
+      
+      - name: Push libsodium Binaries to Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libsodium-macos
+          path: |
+             libsodium-stable/libsodium-apple/macos/lib
+             libsodium-stable/libsodium-apple/macos/build_log
+             libsodium-stable/libsodium-apple/macos/debug_log

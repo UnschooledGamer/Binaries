@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dev tools
-        run: brew install coreutils
+        run: brew install coreutils tree
 
       - name: Clone Repo
         run: wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
@@ -41,5 +41,5 @@ jobs:
 
       - name: cat Log files
         run: |
-              cd libsodium/libsodium-apple
-              cat ./tmp/build_log
+              cd libsodium/libsodium-osx
+              ls

@@ -32,14 +32,14 @@ jobs:
       - name: Build MacOS 
         run: |
               cd libsodium-stable
-              ./dist-build/apple-xcframework.sh
+              ./dist-build/macos.sh
         env: 
             LIBSODIUM_MINIMAL_BUILD: true
             LIBSODIUM_SKIP_SIMULATORS: "true"
 
-      - run: ls
+      - run: tree
 
       - name: cat Log files
         run: |
-              cd $(pwd)/libsodium-apple
-              cat tmp/build_log
+              cd libsodium/libsodium-apple
+              cat ./tmp/build_log

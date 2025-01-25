@@ -43,5 +43,5 @@ jobs:
 
       - name: cat Log files
         run: |
-              cd libsodium/libsodium-osx
+              cd libsodium-stable/libsodium-osx
               ls

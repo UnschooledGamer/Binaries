@@ -66,19 +66,52 @@ mkdir -p "${PREFIX}/tmp"
 echo "Building for macOS..."
 build_macos >"$LOG_FILE" 2>&1 || exit 1
 
+echo "listing files after building for macOS..."
+
+echo "x86_64 listed files:"
+
+ls -l "${MACOS_X86_64_PREFIX}/lib/"
+
+echo "arm64 listed files:"
+
+ls -l "${MACOS_ARM64_PREFIX}/lib/"
+
+echo "arm64e listed files:"
+
+ls -l "${MACOS_ARM64E_PREFIX}/lib/"
+
+echo "listed all files ✅, moving on...."
+
 echo "Bundling macOS targets..."
 
 mkdir -p "${PREFIX}/macos/lib"
 cp -a "${MACOS_X86_64_PREFIX}/include" "${PREFIX}/macos/"
+# lipo creates a universal binary for MacOS
 for ext in a dylib; do
   lipo -create \
     "${MACOS_ARM64_PREFIX}/lib/libsodium.${ext}" \
     "${MACOS_ARM64E_PREFIX}/lib/libsodium.${ext}" \
     "${MACOS_X86_64_PREFIX}/lib/libsodium.${ext}" \
-    -output "${PREFIX}/macos/lib/libsodium.${ext}"
+    -output "${PREFIX}/macos/lib/libsodium_universal.${ext}"
 done
 
 echo "Done!"
+
+echo "copying specific Arch binaries just incase"
+cp -a "${MACOS_ARM64_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_ARM64.dylib"
+cp -a "${MACOS_ARM64E_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_ARM64E.dylib"
+cp -a "${MACOS_X86_64_PREFIX}/lib/libsodium.dylib" "${PREFIX}/macos/lib/libsodium_X86_64.dylib"
+
+echo "copyed specific Arch files to ${PREFIX}/macos/lib directory"
+
+echo "copying logs to macos directory"
+
+cp -a "${LOG_FILE}" "${PREFIX}/macos/"
+cp -a "${PREFIX}/tmp/debug_log" "${PREFIX}/macos/"
+
+echo "Listing Final Built Files"
+
+ls -l "${PREFIX}/macos/lib/"
 
 echo "Cleaning up..."
 
@@ -86,4 +119,4 @@ echo "Cleaning up..."
 rm -rf -- "$PREFIX/tmp"
 make distclean >/dev/null
 
-echo "Cleanup Done! Built files are in ${PREFIX}/macos"
+echo "Cleanup Done! Built files are in ${PREFIX}/macos/lib. \n logs are in ${PREFIX}/macos/"

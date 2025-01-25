@@ -37,10 +37,10 @@ jobs:
             LIBSODIUM_MINIMAL_BUILD: true
 
       - run: |
-             ls ./libsodium-stable/builds
-             tree ./libsodium-stable
+             ls ./libsodium-stable/libsodium-apple
+             tree ./libsodium-stable/libsodium-apple
 
       - name: cat Log files
         run: |
-              cd libsodium-stable/libsodium-osx
+              cd libsodium-stable/libsodium-apple
               ls

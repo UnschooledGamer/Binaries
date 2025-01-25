@@ -27,4 +27,4 @@ jobs:
 
       - name: extract 
         run: |
-             tar -xfv LATEST.tar.gz
+             tar -xvzf LATEST.tar.gz

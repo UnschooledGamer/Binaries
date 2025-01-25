@@ -27,6 +27,7 @@ jobs:
         run: |
              cd libsodium
              ./dist-build/apple-xcframework.sh
+      - run: cat $(pwd)/libsodium-apple/tmp/build_log
         env:
           DOT_ENABLE: true
           LIBSODIUM_MINIMAL_BUILD: true

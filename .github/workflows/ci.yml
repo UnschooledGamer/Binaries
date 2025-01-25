@@ -32,10 +32,9 @@ jobs:
       - name: Build MacOS 
         run: |
               cd libsodium-stable
-              ./dist-build/macos.sh
+              ../scripts/build-libsodium.sh
         env: 
             LIBSODIUM_MINIMAL_BUILD: true
-            LIBSODIUM_SKIP_SIMULATORS: "true"
 
       - run: |
              ls ./libsodium-stable/builds
